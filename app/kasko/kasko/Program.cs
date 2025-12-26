@@ -6,6 +6,9 @@
  *                      до каждой из вершин графа (включая саму вершину а)
  */
 
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
 namespace kasko
 {
     public class Program
@@ -60,6 +63,11 @@ namespace kasko
             {
                 Console.WriteLine("Введите первую точку: ");
                 string first = Console.ReadLine();
+                if(first == "Q")
+                {
+                    Console.WriteLine("До свидания!") ;
+                    return;
+                }
                 if (string.IsNullOrEmpty(first) || !int.TryParse(first, out firstT) || firstT > n || firstT < 1)
                 {
                     valid = false;
@@ -75,6 +83,11 @@ namespace kasko
             {
                 Console.WriteLine("Введите вторую точку");
                 string second = Console.ReadLine();
+                if (second == "Q")
+                {
+                    Console.WriteLine("До свидания!");
+                    return;
+                }
                 if (string.IsNullOrEmpty(second) || !int.TryParse(second, out secondT) || secondT > n || secondT < 1 || secondT == firstT)
                 {
                     valid = false;
