@@ -54,6 +54,8 @@ namespace kasko
             int secondT = 0;
             double[,] matr = new double[n, n];
             Marshrut indmar = new Marshrut();
+
+            Console.WriteLine();
             do
             {
                 Console.WriteLine("Введите первую точку: ");
@@ -66,7 +68,7 @@ namespace kasko
                 else
                 {
                     valid = true;
-                    indmar.first = firstT;
+                    indmar.first = firstT - 1;
                 }
             } while (!valid);
             do
@@ -81,21 +83,26 @@ namespace kasko
                 else
                 {
                     valid = true;
-                    indmar.first = firstT;
+                    indmar.second = secondT -1;
                 }
                 } while (!valid);
+
             Marshrut[] marshrut = new Marshrut[n];
-            string path = @".\tochki.txt";
+            string path = @"..\..\..\tochki.txt";
             using (StreamReader sr = File.OpenText(path))
             {
                 string s;
                 string[] strArr;
-                while ((s = sr.ReadLine()) != null)
+                int i = 0;
+                while ((s = sr.ReadLine()) != null && i < n)
                 {
+                    Console.WriteLine(s);
                     strArr = s.Split("\t");
-                    marshrut[0].first = int.Parse(strArr[0]);
-                    marshrut[0].second = int.Parse(strArr[1]);
-                    marshrut[0].rasst = double.Parse(strArr[2]);
+                    marshrut[i] = new Marshrut();
+                    marshrut[i].first = int.Parse(strArr[0]);
+                    marshrut[i].second = int.Parse(strArr[1]);
+                    marshrut[i].rasst = double.Parse(strArr[2]);
+                    i++;
 
                 }
             }
@@ -112,7 +119,7 @@ namespace kasko
                     {
                         foreach (var mar in marshrut)
                         {
-                            if (mar.first == i && mar.second == j || mar.first == j && mar.second == i)
+                            if (mar.first == i+1 && mar.second == j+1 || mar.first == j+1 && mar.second == i+1)
                             {
                                 matr[i, j] = mar.rasst;
                                 trueOrFalse = true;
@@ -123,9 +130,14 @@ namespace kasko
 
                 }
             }
+            double[] minRasst = Dijkstra(matr, indmar.first);
+            indmar.rasst = minRasst[indmar.second];
+            Random rnd = new Random();
+            double uniformSpeed = rnd.Next(30, 81);
+            
+            Console.WriteLine(indmar.rasst);
 
-
-
+            Console.WriteLine($"Участок {indmar.first + 1} - {indmar.second + 1}: расстояние {indmar.rasst} км, время {indmar.rasst / uniformSpeed:F2} ч");
         }
         
 
