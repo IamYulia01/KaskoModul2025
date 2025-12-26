@@ -87,16 +87,15 @@ namespace kasko
                 }
                 } while (!valid);
 
-            Marshrut[] marshrut = new Marshrut[n];
+            Marshrut[] marshrut = new Marshrut[12];
             string path = @"..\..\..\tochki.txt";
             using (StreamReader sr = File.OpenText(path))
             {
                 string s;
                 string[] strArr;
                 int i = 0;
-                while ((s = sr.ReadLine()) != null && i < n)
+                while ((s = sr.ReadLine()) != null && i < 12)
                 {
-                    Console.WriteLine(s);
                     strArr = s.Split("\t");
                     marshrut[i] = new Marshrut();
                     marshrut[i].first = int.Parse(strArr[0]);
@@ -135,9 +134,12 @@ namespace kasko
             Random rnd = new Random();
             double uniformSpeed = rnd.Next(30, 81);
             
-            Console.WriteLine(indmar.rasst);
 
-            Console.WriteLine($"Участок {indmar.first + 1} - {indmar.second + 1}: расстояние {indmar.rasst} км, время {indmar.rasst / uniformSpeed:F2} ч");
+            double timeInHours = indmar.rasst / uniformSpeed;
+            int hours = (int)timeInHours;
+            int minutes = (int)((timeInHours - hours) * 60);
+
+            Console.WriteLine($"Участок {indmar.first + 1} - {indmar.second + 1}: расстояние {indmar.rasst} км, скорость {uniformSpeed:N0} км/ч, время {hours} ч {minutes} мин");
         }
         
 
