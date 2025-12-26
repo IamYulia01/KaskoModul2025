@@ -20,9 +20,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Restore dependencies ./app/kasko/kasko.sln
+    - name: Restore dependencies ./app/kasko/kasko.slnx
       run: dotnet restore
     - name: Build
-      run: dotnet ./app/kasko/kasko.sln build --no-restore
+      run: dotnet ./app/kasko/kasko.slnx build --no-restore
     - name: Test
-      run: dotnet test ./app/kasko/kasko.sln --no-build --verbosity normal
+      run: dotnet test ./app/kasko/kasko.slnx --no-build --verbosity normal
