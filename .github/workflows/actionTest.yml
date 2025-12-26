@@ -1,13 +1,12 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: test
+name: .NET
 
 on:
   push:
-    branches: [ "develop", "main" ]
+    branches: [ "main" , "develop"]
   pull_request:
-    branches: [ "develop", "main" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   build:
@@ -20,9 +19,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 10.0.x
-    - name: Restore dependencies ./app/kasko/kasko.slnx
-      run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore ./app/kasko/kasko.slnx
     - name: Build
-      run: dotnet ./app/kasko/kasko.slnx build --no-restore
+      run: dotnet build ./app/kasko/kasko.slnx --no-restore
     - name: Test
       run: dotnet test ./app/kasko/kasko.slnx --no-build --verbosity normal
